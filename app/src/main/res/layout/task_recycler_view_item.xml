@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="task"
+            type="com.globa.homeworknotifier.model.Task" />
+        <variable
+            name="viewModel"
+            type="com.globa.homeworknotifier.viewmodel.MainActivityViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskTitleTextView"
+            android:text="@{task.title}"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskDescriptionTextView"
+            android:text="@{task.description}"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskDeadlineTextView"
+            android:text="@{task.deadline.toLocaleString()}"/>
+
+    </LinearLayout>
+
+
+</layout>
