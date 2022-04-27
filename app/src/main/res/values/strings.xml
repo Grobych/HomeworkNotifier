@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Homework Notifier</string>
+    <string name="addTaskButtonText">Add task</string>
+    <string name="taskSubjectHint">Subject</string>
+    <string name="taskDescriptionHint">Enter task here…</string>
+    <string name="taskTitleHint">Title</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="taskDialogConfirmTask">Add</string>
+    <string name="taskDialogCancel">Cancel</string>
 </resources>

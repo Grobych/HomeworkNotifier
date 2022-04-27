@@ -1,12 +1,62 @@
 package com.globa.homeworknotifier.activities
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.globa.homeworknotifier.viewmodel.MainActivityViewModel
 import com.globa.homeworknotifier.R
+import com.globa.homeworknotifier.adapters.TaskAdapter
+import com.globa.homeworknotifier.fragments.AddTaskDialogFragment
+import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
+import com.globa.homeworknotifier.model.Subject
+import com.globa.homeworknotifier.model.Task
+import java.sql.Date
 
-class MainActivity : AppCompatActivity() {
+class MainActivity(
+) : AppCompatActivity(), AddTaskDialogInterface {
+
+    private lateinit var viewModel: MainActivityViewModel
+    lateinit var recyclerView: RecyclerView
+    lateinit var addTaskButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+
+        val t1 = Task(1,"Test 1","Some text", Date(2022,2,23), Subject("math"))
+        val t2 = Task(2,"Test 2","Some text 2 2 2 2", Date(2022,2,25), Subject("math"))
+
+        recyclerView = findViewById(R.id.taskRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = TaskAdapter(mutableListOf(t1))
+
+        addTaskButton = findViewById(R.id.addTaskButton)
+        addTaskButton.setOnClickListener {
+            addTask()
+        }
     }
+
+    fun addTask(){
+        val newFragment = AddTaskDialogFragment()
+        newFragment.show(supportFragmentManager,"AddTaskDialog")
+    }
+
+    override fun sendTask(task: Task) {
+        (recyclerView.adapter as TaskAdapter).add(task)
+    }
+
+
 }
