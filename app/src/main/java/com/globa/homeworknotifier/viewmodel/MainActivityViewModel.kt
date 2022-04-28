@@ -12,20 +12,25 @@ class MainActivityViewModel : ViewModel() {
     fun add(task: Task){
         if (!taskList.contains(task)){
             taskList.add(task)
-            taskLiveList.postValue(taskList)
+            taskLiveList.value =taskList
         }
     }
     fun delete(task: Task){
         taskList.remove(task)
-        taskLiveList.postValue(taskList)
+        taskLiveList.value =taskList
     }
     fun update(task: Task, pos : Int){
         taskList[pos] = task
-        taskLiveList.postValue(taskList)
+        taskLiveList.value =taskList
     }
 
     fun loadFromDatabase(){
 
     }
+
+    fun <T> MutableLiveData<List<T>>.add(item: T) {
+        val updatedItems = this.value as ArrayList
+        updatedItems.add(item)
+        this.value = updatedItems }
 
 }

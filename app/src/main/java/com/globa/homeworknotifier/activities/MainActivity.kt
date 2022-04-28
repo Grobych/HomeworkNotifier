@@ -11,6 +11,7 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,17 +37,18 @@ class MainActivity(
 
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
-        val t1 = Task(1,"Test 1","Some text", Date(2022,2,23), Subject("math"))
-        val t2 = Task(2,"Test 2","Some text 2 2 2 2", Date(2022,2,25), Subject("math"))
-
         recyclerView = findViewById(R.id.taskRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = TaskAdapter(mutableListOf(t1))
+        recyclerView.adapter = TaskAdapter(mutableListOf())
 
         addTaskButton = findViewById(R.id.addTaskButton)
         addTaskButton.setOnClickListener {
             addTask()
         }
+
+        viewModel.taskLiveList.observe(this,{
+            (recyclerView.adapter as TaskAdapter).update(it)
+        })
     }
 
     fun addTask(){
@@ -55,7 +57,8 @@ class MainActivity(
     }
 
     override fun sendTask(task: Task) {
-        (recyclerView.adapter as TaskAdapter).add(task)
+        viewModel.add(task)
+//        (recyclerView.adapter as TaskAdapter).add(task)
     }
 
 

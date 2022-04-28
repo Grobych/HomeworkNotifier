@@ -21,6 +21,18 @@ class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<T
         list[position] = task
         notifyItemChanged(position)
     }
+    fun update(list: List<Task>){
+        list.forEach {
+            if (!this.list.contains(it)){
+                this.list.add(it)
+                notifyItemChanged(this.list.lastIndex)
+            } else{
+                val i = this.list.indexOf(it)
+                this.list[i] = it
+                notifyItemChanged(i)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
