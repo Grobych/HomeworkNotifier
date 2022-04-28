@@ -1,5 +1,6 @@
 package com.globa.homeworknotifier.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
@@ -11,5 +12,6 @@ data  class Task(
     val title : String,
     val description : String,
     val deadline : Date,
+    @Embedded
     val subject: Subject?
 )

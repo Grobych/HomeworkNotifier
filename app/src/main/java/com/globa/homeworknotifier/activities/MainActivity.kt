@@ -49,6 +49,10 @@ class MainActivity(
         viewModel.taskLiveList.observe(this,{
             (recyclerView.adapter as TaskAdapter).update(it)
         })
+
+
+        if (savedInstanceState == null) viewModel.loadFromDatabase()
+
     }
 
     fun addTask(){
