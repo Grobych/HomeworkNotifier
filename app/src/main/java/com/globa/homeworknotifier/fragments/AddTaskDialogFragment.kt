@@ -35,12 +35,12 @@ class AddTaskDialogFragment : DialogFragment(){
             loadViews(view)
             builder.setView(view)
                 // Add action buttons
-                .setPositiveButton(R.string.taskDialogConfirmTask
+                .setPositiveButton(R.string.task_dialog_confirm_task
                 ) { dialog, _ ->
                     taskInterface.sendTask(buildTask())
                     dialog.dismiss()
                 }
-                .setNegativeButton(R.string.taskDialogCancel
+                .setNegativeButton(R.string.task_dialog_cancel
                 ) { dialog, _ ->
                     dialog.cancel()
                 }

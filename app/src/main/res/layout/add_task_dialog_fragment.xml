@@ -28,16 +28,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/taskSubjectEditText"
-        android:hint="@string/taskSubjectHint"/>
+        android:hint="@string/task_subject_hint"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/taskTitleEditText"
-        android:hint="@string/taskTitleHint"/>
+        android:hint="@string/task_title_hint"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/taskDescriptionEditText"
-        android:hint="@string/taskDescriptionHint"/>
+        android:hint="@string/task_description_hint"/>
 
 </LinearLayout>
