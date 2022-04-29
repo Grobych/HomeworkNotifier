@@ -35,26 +35,26 @@ class AddTaskDialogFragment : DialogFragment(){
             loadViews(view)
             builder.setView(view)
                 // Add action buttons
-                .setPositiveButton(R.string.taskDialogConfirmTask,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        taskInterface.sendTask(buildTask())
-                        dialog.dismiss()
-                    })
-                .setNegativeButton(R.string.taskDialogCancel,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        dialog.cancel()
-                    })
+                .setPositiveButton(R.string.taskDialogConfirmTask
+                ) { dialog, _ ->
+                    taskInterface.sendTask(buildTask())
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.taskDialogCancel
+                ) { dialog, _ ->
+                    dialog.cancel()
+                }
             it?.findViewById<TimePicker>(R.id.taskTimePicker)?.setIs24HourView(true)
             return builder.create()
         }
     }
 
     override fun onAttach(context: Context) {
-        try {
-            taskInterface = activity as AddTaskDialogInterface
-        } catch (e: ClassCastException) {
-            Log.e("INTERFACE", "onAttach: ClassCastException: ${e.message}")
-        }
+//        try {
+//            taskInterface = activity as AddTaskDialogInterface
+//        } catch (e: ClassCastException) {
+//            Log.e("INTERFACE", "onAttach: ClassCastException: ${e.message}")
+//        }
         super.onAttach(context)
     }
 
@@ -86,5 +86,9 @@ class AddTaskDialogFragment : DialogFragment(){
             timePicker.minute
         )
         return calendar.time
+    }
+
+    fun setInterface(i : AddTaskDialogInterface){
+        this.taskInterface = i
     }
 }

@@ -24,46 +24,13 @@ import com.globa.homeworknotifier.model.Subject
 import com.globa.homeworknotifier.model.Task
 import java.sql.Date
 
-class MainActivity(
-) : AppCompatActivity(), AddTaskDialogInterface {
+class MainActivity() : FragmentActivity() {
 
     private lateinit var viewModel: MainActivityViewModel
-    lateinit var recyclerView: RecyclerView
-    lateinit var addTaskButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
-
-        recyclerView = findViewById(R.id.taskRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = TaskAdapter(mutableListOf())
-
-        addTaskButton = findViewById(R.id.addTaskButton)
-        addTaskButton.setOnClickListener {
-            addTask()
-        }
-
-        viewModel.taskLiveList.observe(this,{
-            (recyclerView.adapter as TaskAdapter).update(it)
-        })
-
-
-        if (savedInstanceState == null) viewModel.loadFromDatabase()
-
     }
-
-    fun addTask(){
-        val newFragment = AddTaskDialogFragment()
-        newFragment.show(supportFragmentManager,"AddTaskDialog")
-    }
-
-    override fun sendTask(task: Task) {
-        viewModel.add(task)
-//        (recyclerView.adapter as TaskAdapter).add(task)
-    }
-
 
 }
