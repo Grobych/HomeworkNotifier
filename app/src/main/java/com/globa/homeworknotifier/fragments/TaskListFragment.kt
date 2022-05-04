@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
+import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
 import com.globa.homeworknotifier.model.Task
-import com.globa.homeworknotifier.viewmodel.MainActivityViewModel
+import com.globa.homeworknotifier.util.TaskTouchListener
 import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 
 class TaskListFragment : Fragment(), AddTaskDialogInterface {
@@ -36,6 +37,13 @@ class TaskListFragment : Fragment(), AddTaskDialogInterface {
         recyclerView = view.findViewById(R.id.taskRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = TaskAdapter(mutableListOf())
+        recyclerView.addOnItemTouchListener(
+            TaskTouchListener(requireActivity(), object : RecyclerViewClickListener {
+                override fun recyclerViewListClicked(v: View, pos: Int) {
+                    //toTaskFragment(viewModel.get(pos))
+                }
+            })
+        )
 
         addTaskButton = view.findViewById(R.id.addTaskButton)
         addTaskButton.setOnClickListener {

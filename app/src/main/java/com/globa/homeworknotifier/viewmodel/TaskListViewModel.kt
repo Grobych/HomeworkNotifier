@@ -26,6 +26,10 @@ class TaskListViewModel : ViewModel() {
         taskLiveList.value =taskList
     }
 
+    fun get(pos : Int) : Task{
+        return taskLiveList.value?.get(pos)!!
+    }
+
     fun loadFromDatabase(){
         taskLiveList.postValue(App.instance?.getDatabase()?.taskDao?.getAll()?.toMutableList())
     }

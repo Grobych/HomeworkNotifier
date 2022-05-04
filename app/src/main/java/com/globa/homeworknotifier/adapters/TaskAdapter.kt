@@ -1,11 +1,14 @@
 package com.globa.homeworknotifier.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.databinding.TaskRecyclerViewItemBinding
+import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
 import com.globa.homeworknotifier.model.Task
 
 class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
@@ -16,6 +19,9 @@ class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<T
     }
     fun delete(task: Task){
         if (list.remove(task)) notifyItemRemoved(list.lastIndex)
+    }
+    fun delete(i : Int){
+        if (list.remove(list[i])) notifyItemChanged(i)
     }
     fun update(task: Task, position: Int){
         list[position] = task
@@ -33,6 +39,9 @@ class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<T
             }
         }
     }
+    fun get(i : Int) : Task{
+        return list[i]
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -48,16 +57,13 @@ class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<T
         return list.size
     }
 
-    inner class ViewHolder(private val binding: TaskRecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            // Define click listener for the ViewHolder's View.
-        }
-
+    inner class ViewHolder(private val binding: TaskRecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         fun bind(task: Task){
             binding.task = task
-//            binding.taskTitleTextView.text = task.title
-//            binding.taskDescriptionTextView.text = task.description
-//            binding.taskDeadlineTextView.text = task.deadline.toString()
+        }
+
+        override fun onClick(v: View?) {
+            TODO("Not yet implemented")
         }
 
     }
