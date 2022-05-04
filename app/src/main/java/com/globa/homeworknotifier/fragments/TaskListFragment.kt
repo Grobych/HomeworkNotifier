@@ -14,11 +14,12 @@ import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
 import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
+import com.globa.homeworknotifier.interfaces.TaskFragmentInterface
 import com.globa.homeworknotifier.model.Task
 import com.globa.homeworknotifier.interfaces.TaskTouchListener
 import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 
-class TaskListFragment : Fragment(), AddTaskDialogInterface {
+class TaskListFragment(val taskFragmentInterface: TaskFragmentInterface) : Fragment(), AddTaskDialogInterface {
 
     lateinit var recyclerView: RecyclerView
     lateinit var addTaskButton: Button
@@ -45,6 +46,7 @@ class TaskListFragment : Fragment(), AddTaskDialogInterface {
                 }
 
                 override fun recyclerViewListClicked(v: View, pos: Int, task: Task) {
+                    taskFragmentInterface.to(task)
                     Toast.makeText(context,"$task",Toast.LENGTH_LONG).show()
                 }
             })
