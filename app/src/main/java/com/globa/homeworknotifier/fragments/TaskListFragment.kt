@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globa.homeworknotifier.R
@@ -41,6 +42,10 @@ class TaskListFragment : Fragment(), AddTaskDialogInterface {
             TaskTouchListener(requireActivity(), object : RecyclerViewClickListener {
                 override fun recyclerViewListClicked(v: View, pos: Int) {
                     //toTaskFragment(viewModel.get(pos))
+                }
+
+                override fun recyclerViewListClicked(v: View, pos: Int, task: Task) {
+                    Toast.makeText(context,"$task",Toast.LENGTH_LONG).show()
                 }
             })
         )
