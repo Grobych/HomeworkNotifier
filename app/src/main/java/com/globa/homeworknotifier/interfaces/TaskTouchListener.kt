@@ -1,4 +1,4 @@
-package com.globa.homeworknotifier.util
+package com.globa.homeworknotifier.interfaces
 
 import android.content.Context
 import android.view.GestureDetector

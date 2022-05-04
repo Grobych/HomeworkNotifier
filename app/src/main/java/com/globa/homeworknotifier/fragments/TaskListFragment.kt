@@ -15,7 +15,7 @@ import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
 import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
 import com.globa.homeworknotifier.model.Task
-import com.globa.homeworknotifier.util.TaskTouchListener
+import com.globa.homeworknotifier.interfaces.TaskTouchListener
 import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 
 class TaskListFragment : Fragment(), AddTaskDialogInterface {
