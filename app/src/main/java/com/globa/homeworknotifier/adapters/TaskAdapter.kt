@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.databinding.TaskRecyclerViewItemBinding
-import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
 import com.globa.homeworknotifier.model.Task
 
 class TaskAdapter(private val list : MutableList<Task>) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {

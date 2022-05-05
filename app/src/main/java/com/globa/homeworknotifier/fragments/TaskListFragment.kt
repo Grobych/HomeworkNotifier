@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globa.homeworknotifier.App
@@ -15,7 +14,6 @@ import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
 import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
-import com.globa.homeworknotifier.interfaces.TaskFragmentInterface
 import com.globa.homeworknotifier.model.Task
 import com.globa.homeworknotifier.interfaces.TaskTouchListener
 import com.globa.homeworknotifier.viewmodel.TaskListViewModel

@@ -29,12 +29,10 @@ class AddTaskDialogFragment : DialogFragment(){
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         activity.let {
             val builder = AlertDialog.Builder(this.requireContext())
-            // Get the layout inflater
-            val inflater = requireActivity().layoutInflater;
+            val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.add_task_dialog_fragment, null)
             loadViews(view)
             builder.setView(view)
-                // Add action buttons
                 .setPositiveButton(R.string.task_dialog_confirm_task
                 ) { dialog, _ ->
                     taskInterface.sendTask(buildTask())
@@ -49,16 +47,7 @@ class AddTaskDialogFragment : DialogFragment(){
         }
     }
 
-    override fun onAttach(context: Context) {
-//        try {
-//            taskInterface = activity as AddTaskDialogInterface
-//        } catch (e: ClassCastException) {
-//            Log.e("INTERFACE", "onAttach: ClassCastException: ${e.message}")
-//        }
-        super.onAttach(context)
-    }
-
-    fun loadViews(view : View){
+    private fun loadViews(view : View){
         view.apply {
             timePicker = findViewById(R.id.taskTimePicker)
             datePicker = findViewById(R.id.taskDatePicker)
@@ -68,7 +57,7 @@ class AddTaskDialogFragment : DialogFragment(){
         }
     }
 
-    fun buildTask() : Task{
+    private fun buildTask() : Task{
         return Task(
             null,
             taskTitleEditText.text.toString(),
@@ -86,9 +75,5 @@ class AddTaskDialogFragment : DialogFragment(){
             timePicker.minute
         )
         return calendar.time
-    }
-
-    fun setInterface(i : AddTaskDialogInterface){
-        this.taskInterface = i
     }
 }

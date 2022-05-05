@@ -15,7 +15,6 @@ import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.databinding.TaskFragmentBinding
 import com.globa.homeworknotifier.interfaces.NoticeDialogListener
 import com.globa.homeworknotifier.model.Task
-import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 import com.globa.homeworknotifier.viewmodel.TaskViewModel
 
 class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {

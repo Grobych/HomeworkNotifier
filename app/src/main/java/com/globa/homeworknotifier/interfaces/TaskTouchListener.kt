@@ -36,8 +36,6 @@ class TaskTouchListener : RecyclerView.OnItemTouchListener {
         return false
     }
 
-    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-        TODO("Not yet implemented")
-    }
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 }

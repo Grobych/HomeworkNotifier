@@ -33,13 +33,6 @@ object TaskRepository {
 
     fun loadFromDatabase(){
         App.instance?.getDatabase()?.taskDao?.getAll()?.toMutableList()?.let { taskList.addAll(it) }
-        Log.d("LOAD", "$taskList")
         taskLiveList.postValue(taskList)
-        Log.d("LOAD", "$taskList")
     }
-
-    fun <T> MutableLiveData<List<T>>.add(item: T) {
-        val updatedItems = this.value as ArrayList
-        updatedItems.add(item)
-        this.value = updatedItems }
 }
