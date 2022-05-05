@@ -32,7 +32,17 @@ class TaskFragment(val task: Task) : Fragment() {
         viewModel.taskLiveData.observe(viewLifecycleOwner,{
             binding.task = it
         })
+
+        binding.taskDeleteButton.setOnClickListener {
+
+        }
+        binding.taskDoneButton.setOnClickListener {
+
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
+
+
 
 }

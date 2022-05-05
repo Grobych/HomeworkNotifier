@@ -28,7 +28,7 @@ import com.globa.homeworknotifier.model.Subject
 import com.globa.homeworknotifier.model.Task
 import java.sql.Date
 
-class MainActivity() : FragmentActivity(), TaskFragmentInterface {
+class MainActivity() : FragmentActivity() {
 
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var taskListFragment: TaskListFragment
@@ -37,22 +37,10 @@ class MainActivity() : FragmentActivity(), TaskFragmentInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        taskListFragment = TaskListFragment(this)
+        taskListFragment = TaskListFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.mainFragmentContainer,taskListFragment)
+            .setReorderingAllowed(true)
             .commit()
     }
-
-    private fun toFragment(task: Task){
-        taskFragment = TaskFragment(task)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragmentContainer, taskFragment)
-            .commit()
-    }
-
-    override fun to(task: Task) {
-        Log.d("TO", "$task")
-        toFragment(task)
-    }
-
 }

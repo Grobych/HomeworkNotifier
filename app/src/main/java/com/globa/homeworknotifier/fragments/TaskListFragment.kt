@@ -19,7 +19,7 @@ import com.globa.homeworknotifier.model.Task
 import com.globa.homeworknotifier.interfaces.TaskTouchListener
 import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 
-class TaskListFragment(val taskFragmentInterface: TaskFragmentInterface) : Fragment(), AddTaskDialogInterface {
+class TaskListFragment() : Fragment(), AddTaskDialogInterface {
 
     lateinit var recyclerView: RecyclerView
     lateinit var addTaskButton: Button
@@ -46,8 +46,11 @@ class TaskListFragment(val taskFragmentInterface: TaskFragmentInterface) : Fragm
                 }
 
                 override fun recyclerViewListClicked(v: View, pos: Int, task: Task) {
-                    taskFragmentInterface.to(task)
-                    Toast.makeText(context,"$task",Toast.LENGTH_LONG).show()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.mainFragmentContainer,TaskFragment(task))
+                        .setReorderingAllowed(true)
+                        .addToBackStack("task")
+                        .commit()
                 }
             })
         )
