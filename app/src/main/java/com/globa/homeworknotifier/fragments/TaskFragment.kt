@@ -1,6 +1,8 @@
 package com.globa.homeworknotifier.fragments
 
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.databinding.TaskFragmentBinding
+import com.globa.homeworknotifier.interfaces.NoticeDialogListener
 import com.globa.homeworknotifier.model.Task
+import com.globa.homeworknotifier.viewmodel.TaskListViewModel
 import com.globa.homeworknotifier.viewmodel.TaskViewModel
 
-class TaskFragment(val task: Task) : Fragment() {
+class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
 
     private lateinit var viewModel: TaskViewModel
     private lateinit var binding: TaskFragmentBinding
@@ -34,7 +40,8 @@ class TaskFragment(val task: Task) : Fragment() {
         })
 
         binding.taskDeleteButton.setOnClickListener {
-
+            val dialog = DeleteTaskDialogFragment(this)
+            activity?.let { dialog.show(it.supportFragmentManager,"DeleteTaskDialog") }
         }
         binding.taskDoneButton.setOnClickListener {
 
@@ -43,6 +50,14 @@ class TaskFragment(val task: Task) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        App.instance?.getRepository()?.delete(task)
+        parentFragmentManager.popBackStack()
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+
+    }
 
 
 }

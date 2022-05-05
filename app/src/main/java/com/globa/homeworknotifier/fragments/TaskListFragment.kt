@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
@@ -59,11 +60,10 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
         addTaskButton.setOnClickListener {
             addTask()
         }
-
-        viewModel.taskLiveList.observe(viewLifecycleOwner,{
+        App.instance?.getRepository()?.taskLiveList?.observe(viewLifecycleOwner,{
             (recyclerView.adapter as TaskAdapter).update(it)
         })
-        if (savedInstanceState == null) viewModel.loadFromDatabase()
+//        if (savedInstanceState == null) App.instance?.getRepository()?.loadFromDatabase()
 
 
 
@@ -77,7 +77,7 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
     }
 
     override fun sendTask(task: Task) {
-        viewModel.add(task)
+        App.instance?.getRepository()?.add(task)
 //        (recyclerView.adapter as TaskAdapter).add(task)
     }
 
