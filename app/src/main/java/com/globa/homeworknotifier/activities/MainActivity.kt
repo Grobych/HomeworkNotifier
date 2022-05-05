@@ -31,18 +31,22 @@ import java.sql.Date
 class MainActivity() : FragmentActivity(), TaskFragmentInterface {
 
     private lateinit var viewModel: MainActivityViewModel
+    private lateinit var taskListFragment: TaskListFragment
+    private lateinit var taskFragment: TaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        taskListFragment = TaskListFragment(this)
         supportFragmentManager.beginTransaction()
-            .add(R.id.mainFragmentContainer,TaskListFragment(this))
+            .add(R.id.mainFragmentContainer,taskListFragment)
             .commit()
     }
 
     private fun toFragment(task: Task){
+        taskFragment = TaskFragment(task)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainFragmentContainer, TaskFragment(task))
+            .replace(R.id.mainFragmentContainer, taskFragment)
             .commit()
     }
 

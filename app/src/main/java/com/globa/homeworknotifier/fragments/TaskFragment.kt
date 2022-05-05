@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.globa.homeworknotifier.databinding.TaskFragmentBinding
 import com.globa.homeworknotifier.model.Task
 import com.globa.homeworknotifier.viewmodel.TaskViewModel
 
-class TaskFragment(task: Task) : Fragment() {
+class TaskFragment(val task: Task) : Fragment() {
 
-    private var task: Task = task
     private lateinit var viewModel: TaskViewModel
     private lateinit var binding: TaskFragmentBinding
 
@@ -27,6 +27,7 @@ class TaskFragment(task: Task) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+        Toast.makeText(context,"$task",Toast.LENGTH_LONG).show()
         viewModel.taskLiveData.postValue(task)
         viewModel.taskLiveData.observe(viewLifecycleOwner,{
             binding.task = it
