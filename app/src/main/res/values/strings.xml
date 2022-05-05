@@ -11,4 +11,7 @@
     <string name="task_title">Title</string>
     <string name="task_done_button_text">Done</string>
     <string name="task_delete_button_text">Delete task</string>
+    <string name="delete_task_dialog_text">Delete this task?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
