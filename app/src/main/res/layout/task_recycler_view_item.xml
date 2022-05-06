@@ -16,23 +16,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/border">
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/taskTitleTextView"
+            android:textSize="12pt"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@{task.title}"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/taskDescriptionTextView"
+            android:textSize="8pt"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@{task.description}"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/taskDeadlineTextView"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="7pt"
             android:text="@{task.deadline.toLocaleString()}"/>
 
     </LinearLayout>
