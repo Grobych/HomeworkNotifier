@@ -10,7 +10,9 @@
             android:id="@+id/addTaskButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_task_button_text"/>
+            android:text="@string/add_task_button_text"
+            android:textSize="10pt"
+            style="?android:attr/buttonBarButtonStyle"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/taskRecyclerView"
             android:layout_width="match_parent"
