@@ -17,17 +17,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskDoneButton"
-                android:text="@string/task_done_button_text"/>
+                android:text="@string/task_done_button_text"
+                android:layout_margin="20dp"
+                style="?android:attr/buttonBarButtonStyle" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskDeleteButton"
-                android:text="@string/task_delete_button_text"/>
+                android:text="@string/task_delete_button_text"
+                android:layout_margin="20dp"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
         <LinearLayout
@@ -38,18 +43,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskTitleTextView"
+                android:textSize="15pt"
+                android:layout_margin="10dp"
                 android:text="@{task.title}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskDescriptionTextView"
+                android:layout_margin="10dp"
+                android:textSize="10pt"
                 android:text="@{task.description}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskDeadlineTextView"
+                android:textSize="7pt"
+                android:gravity="end"
+                android:layout_margin="10dp"
                 android:text="@{task.deadline.toLocaleString()}"/>
         </LinearLayout>
     </LinearLayout>
