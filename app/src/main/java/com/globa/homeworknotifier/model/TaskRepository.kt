@@ -25,8 +25,19 @@ object TaskRepository {
         taskLiveList.postValue(taskList)
         App.instance?.getDatabase()?.taskDao?.update(task)
     }
-    fun update(task: Task){
-        taskList.add(task)
+    fun update(update: Task){
+        taskList.forEachIndexed{index, task ->
+            task.takeIf { it.id == update.id }?.let { taskList[index] = update }
+        }
+        taskLiveList.postValue(taskList)
+        App.instance?.getDatabase()?.taskDao?.update(update)
+    }
+    fun done(update: Task){
+        taskList.forEachIndexed{ _, task ->
+            task.takeIf { it.id == update.id }?.let { taskList.remove(it) }
+        }
+        taskLiveList.postValue(taskList)
+        App.instance?.getDatabase()?.taskDao?.update(update)
     }
 
     fun get(pos : Int) : Task{

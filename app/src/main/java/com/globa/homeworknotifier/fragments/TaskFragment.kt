@@ -1,8 +1,5 @@
 package com.globa.homeworknotifier.fragments
 
-import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +12,7 @@ import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.databinding.TaskFragmentBinding
 import com.globa.homeworknotifier.interfaces.NoticeDialogListener
 import com.globa.homeworknotifier.model.Task
+import com.globa.homeworknotifier.model.TaskStatus
 import com.globa.homeworknotifier.viewmodel.TaskViewModel
 
 class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
@@ -43,7 +41,10 @@ class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
             activity?.let { dialog.show(it.supportFragmentManager,"DeleteTaskDialog") }
         }
         binding.taskDoneButton.setOnClickListener {
-
+            task.status = TaskStatus.DONE
+            App.instance?.getRepository()?.done(task)
+            Toast.makeText(context,"Done!",Toast.LENGTH_SHORT).show()
+            parentFragmentManager.popBackStack()
         }
 
         super.onViewCreated(view, savedInstanceState)
