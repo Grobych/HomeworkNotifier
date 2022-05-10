@@ -15,6 +15,7 @@ import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
 import com.globa.homeworknotifier.model.Subject
 import com.globa.homeworknotifier.model.Task
+import com.globa.homeworknotifier.model.TaskStatus
 import java.lang.ClassCastException
 import java.util.*
 
@@ -63,6 +64,7 @@ class AddTaskDialogFragment : DialogFragment(){
             taskTitleEditText.text.toString(),
             taskDescriptionEditText.text.toString(),
             getDate(datePicker, timePicker),
+            TaskStatus.IN_PROGRESS,
             Subject(taskSubjectEditText.text.toString())
         )
     }
