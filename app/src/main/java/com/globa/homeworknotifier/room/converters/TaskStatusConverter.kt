@@ -1,4 +1,4 @@
-package com.globa.homeworknotifier.util
+package com.globa.homeworknotifier.room.converters
 
 import androidx.room.TypeConverter
 import com.globa.homeworknotifier.model.TaskStatus
