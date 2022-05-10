@@ -3,7 +3,7 @@ package com.globa.homeworknotifier.util
 import androidx.room.TypeConverter
 import com.globa.homeworknotifier.model.TaskStatus
 
-class TaskStatusConverter {
+object TaskStatusConverter {
     @TypeConverter
     fun toTaskStatus(string: String): TaskStatus {
         return TaskStatus.valueOf(string)
