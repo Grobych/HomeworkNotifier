@@ -3,6 +3,7 @@ package com.globa.homeworknotifier
 import androidx.room.Room
 import android.app.Application
 import com.globa.homeworknotifier.model.TaskRepository
+import com.globa.homeworknotifier.model.TaskStatus
 import com.globa.homeworknotifier.room.TaskDatabase
 
 class App : Application() {
@@ -14,9 +15,10 @@ class App : Application() {
         instance = this
         database = Room.databaseBuilder(this, TaskDatabase::class.java, "database")
             .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
         repository = TaskRepository
-        repository.loadFromDatabase()
+        repository.loadFromDatabase(TaskStatus.IN_PROGRESS)
     }
 
     fun getDatabase(): TaskDatabase? {
