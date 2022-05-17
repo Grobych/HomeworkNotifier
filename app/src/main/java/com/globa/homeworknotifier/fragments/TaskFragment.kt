@@ -1,6 +1,5 @@
 package com.globa.homeworknotifier.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.databinding.TaskFragmentBinding
 import com.globa.homeworknotifier.interfaces.NoticeDialogListener
-import com.globa.homeworknotifier.model.Task
-import com.globa.homeworknotifier.model.TaskStatus
-import com.globa.homeworknotifier.viewmodel.TaskViewModel
+import com.globa.homeworknotifier.viewmodel.MainActivityViewModel
 
-class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
+class TaskFragment() : Fragment(), NoticeDialogListener {
 
-    private lateinit var viewModel: TaskViewModel
+    private lateinit var viewModel: MainActivityViewModel
     private lateinit var binding: TaskFragmentBinding
 
     override fun onCreateView(
@@ -29,10 +25,9 @@ class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
-        Toast.makeText(context,"$task",Toast.LENGTH_LONG).show()
-        viewModel.taskLiveData.postValue(task)
-        viewModel.taskLiveData.observe(viewLifecycleOwner,{
+        viewModel = MainActivityViewModel.getInstance()
+        Toast.makeText(context,"${viewModel.taskLive.value}",Toast.LENGTH_SHORT).show()
+        viewModel.taskLive.observe(viewLifecycleOwner,{
             binding.task = it
         })
 
@@ -41,8 +36,7 @@ class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
             activity?.let { dialog.show(it.supportFragmentManager,"DeleteTaskDialog") }
         }
         binding.taskDoneButton.setOnClickListener {
-            task.status = TaskStatus.DONE
-            App.instance?.getRepository()?.done(task)
+            viewModel.doneCurrentTask()
             Toast.makeText(context,"Done!",Toast.LENGTH_SHORT).show()
             parentFragmentManager.popBackStack()
         }
@@ -51,7 +45,7 @@ class TaskFragment(val task: Task) : Fragment(), NoticeDialogListener {
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
-        App.instance?.getRepository()?.delete(task)
+        viewModel.deleteCurrentTask()
         parentFragmentManager.popBackStack()
     }
 

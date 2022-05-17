@@ -1,6 +1,5 @@
 package com.globa.homeworknotifier.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,21 +8,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.globa.homeworknotifier.App
 import com.globa.homeworknotifier.R
 import com.globa.homeworknotifier.adapters.TaskAdapter
 import com.globa.homeworknotifier.interfaces.AddTaskDialogInterface
 import com.globa.homeworknotifier.interfaces.RecyclerViewClickListener
 import com.globa.homeworknotifier.model.Task
 import com.globa.homeworknotifier.interfaces.TaskTouchListener
-import com.globa.homeworknotifier.viewmodel.TaskListViewModel
+import com.globa.homeworknotifier.viewmodel.MainActivityViewModel
 
 class TaskListFragment() : Fragment(), AddTaskDialogInterface {
 
     lateinit var recyclerView: RecyclerView
     lateinit var addTaskButton: Button
 
-    private lateinit var viewModel: TaskListViewModel
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +31,11 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this)[TaskListViewModel::class.java]
+        viewModel = MainActivityViewModel.getInstance()
 
         recyclerView = view.findViewById(R.id.taskRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = TaskAdapter(mutableListOf())
+        recyclerView.adapter = viewModel.taskListLive.value?.let { TaskAdapter(it) }
         recyclerView.addOnItemTouchListener(
             TaskTouchListener(requireActivity(), object : RecyclerViewClickListener {
                 override fun recyclerViewListClicked(v: View, pos: Int) {
@@ -45,8 +43,9 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
                 }
 
                 override fun recyclerViewListClicked(v: View, pos: Int, task: Task) {
+                    viewModel.taskLive.value = task
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.mainFragmentContainer,TaskFragment(task))
+                        .replace(R.id.mainFragmentContainer,TaskFragment())
                         .setReorderingAllowed(true)
                         .addToBackStack("task")
                         .commit()
@@ -58,12 +57,9 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
         addTaskButton.setOnClickListener {
             addTask()
         }
-        App.instance?.getRepository()?.taskLiveList?.observe(viewLifecycleOwner,{
+        viewModel.taskListLive.observe(viewLifecycleOwner,{
             (recyclerView.adapter as TaskAdapter).update(it)
         })
-//        if (savedInstanceState == null) App.instance?.getRepository()?.loadFromDatabase()
-
-
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -75,8 +71,7 @@ class TaskListFragment() : Fragment(), AddTaskDialogInterface {
     }
 
     override fun sendTask(task: Task) {
-        App.instance?.getRepository()?.add(task)
-//        (recyclerView.adapter as TaskAdapter).add(task)
+        viewModel.add(task)
     }
 
 

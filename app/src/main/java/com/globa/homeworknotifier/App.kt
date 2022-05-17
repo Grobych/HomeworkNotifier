@@ -21,6 +21,12 @@ class App : Application() {
         repository.loadFromDatabase(TaskStatus.IN_PROGRESS)
     }
 
+    override fun onTerminate() {
+        database?.close()
+        database = null
+        super.onTerminate()
+    }
+
     fun getDatabase(): TaskDatabase? {
         return database
     }
